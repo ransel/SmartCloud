@@ -1,0 +1,49 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2048
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartCloud", "SmartCloud\SmartCloud.csproj", "{141C994E-F91F-4ACA-B3C6-4C5BB09A6FE8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartCloud.Domain", "SmartCloud.Domain\SmartCloud.Domain.csproj", "{9BBFA002-085D-4928-A779-008ED72B708A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartCloud.Services", "SmartCloud.Services\SmartCloud.Services.csproj", "{0A61F2D3-3CE4-497B-AC24-03C9EAC3694E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartCloud.Common", "SmartCloud.Common\SmartCloud.Common.csproj", "{8EDD074E-D54A-473C-B209-A4A31F23EA4E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartCloud.Model", "SmartCloud.Model\SmartCloud.Model.csproj", "{49F1DF3A-D14A-467F-BF41-D9D4AE037C12}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{141C994E-F91F-4ACA-B3C6-4C5BB09A6FE8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{141C994E-F91F-4ACA-B3C6-4C5BB09A6FE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{141C994E-F91F-4ACA-B3C6-4C5BB09A6FE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{141C994E-F91F-4ACA-B3C6-4C5BB09A6FE8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9BBFA002-085D-4928-A779-008ED72B708A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9BBFA002-085D-4928-A779-008ED72B708A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9BBFA002-085D-4928-A779-008ED72B708A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9BBFA002-085D-4928-A779-008ED72B708A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0A61F2D3-3CE4-497B-AC24-03C9EAC3694E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A61F2D3-3CE4-497B-AC24-03C9EAC3694E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A61F2D3-3CE4-497B-AC24-03C9EAC3694E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A61F2D3-3CE4-497B-AC24-03C9EAC3694E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8EDD074E-D54A-473C-B209-A4A31F23EA4E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8EDD074E-D54A-473C-B209-A4A31F23EA4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8EDD074E-D54A-473C-B209-A4A31F23EA4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8EDD074E-D54A-473C-B209-A4A31F23EA4E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{49F1DF3A-D14A-467F-BF41-D9D4AE037C12}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{49F1DF3A-D14A-467F-BF41-D9D4AE037C12}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49F1DF3A-D14A-467F-BF41-D9D4AE037C12}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{49F1DF3A-D14A-467F-BF41-D9D4AE037C12}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D7941B40-8CE3-4B44-A312-F5F30F0E9AFA}
+	EndGlobalSection
+EndGlobal
