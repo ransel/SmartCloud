@@ -18,6 +18,7 @@ namespace SmartCloud.Model.Account
         public string Password { get; set; }
         public string UserConfig { get; set; }
 
+        // Extension Properties
         public string UserType { get; set; }
     }
 }
