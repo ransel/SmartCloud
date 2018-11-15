@@ -7,5 +7,6 @@ namespace SmartCloud.Services.Interfaces
     public interface IAccountRepository
     {
         Task<List<User>> GetAllUsers();
+        Task CreateUser(User user);
     }
 }

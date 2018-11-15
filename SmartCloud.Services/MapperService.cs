@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using AutoMapper;
+using SmartCloud.Domain.Commands.Account;
 using SmartCloud.Model.Account;
 using SmartCloud.Services.Interfaces;
 using SmartCloud.Services.Mappers.Converters;
@@ -17,7 +18,7 @@ namespace SmartCloud.Services
             _mapper = config.CreateMapper();
         }
 
-        private MapperConfiguration InitializeMaps()
+        private static MapperConfiguration InitializeMaps()
         {
             
             var config = new MapperConfiguration(cfg =>
@@ -27,6 +28,7 @@ namespace SmartCloud.Services
                 cfg.CreateMap<bool, string>().ConvertUsing<BoolToStringConverter>();
                 cfg.CreateMap<bool?, string>().ConvertUsing<NullableBoolToStringConverter>();
                 cfg.CreateMap<Domain.Entities.User, User>().ForMember(dest => dest.UserType, src => src.MapFrom(x => x.UserType.Description));
+                cfg.CreateMap<CreateUserCommand, Domain.Entities.User>();
             });
 
             return config;

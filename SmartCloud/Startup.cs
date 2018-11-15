@@ -1,5 +1,4 @@
 ﻿using MediatR;
-using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -8,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SmartCloud.Domain.Entities;
+using SmartCloud.Domain.Settings;
 using SmartCloud.Services;
 using SmartCloud.Services.Interfaces;
 using SmartCloud.Services.Repositories;
@@ -38,20 +38,28 @@ namespace SmartCloud
             });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMemoryCache();
             services.AddMediatR();
 
-            // Services 
+            services.Configure<NotificationSettings>(Configuration.GetSection("NotificationSettings"));
+            services.Configure<SqlServerSettings>(Configuration.GetSection("SqlServerSettings"));
+
+            // System Services 
             services.AddScoped<ILoggingService, LoggingService>();
             services.AddScoped<IValidationService, ValidationService>();
             services.AddScoped<IMapperService, MapperService>();
+            services.AddScoped<ICacheService, CacheService>();
+            services.AddScoped<INotificationService, NotificationService>();
+            services.AddScoped<IContextService, ContextService>();
+
+            // Specialized Services
             services.AddScoped<IAccountService, AccountService>();
 
             // Repositories
             services.AddScoped<IAccountRepository, AccountRepository>();
 
-
             services.AddDbContext<MVP_DBContext>(options => 
-                options.UseSqlServer(Configuration.GetValue<string>("SQLServer:ConnectionString")));
+                options.UseSqlServer(Configuration.GetValue<string>("SqlServerSettings:ConnectionString")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

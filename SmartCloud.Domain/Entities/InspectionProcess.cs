@@ -15,12 +15,14 @@ namespace SmartCloud.Domain.Entities
         public Guid? AssetInspectionId { get; set; }
         public int? ProcessTypeId { get; set; }
         public bool? ProcessPassed { get; set; }
-        public TimeSpan? StartTime { get; set; }
-        public TimeSpan? CompleteTime { get; set; }
         public int? TotalSteps { get; set; }
         public int? StepsPassed { get; set; }
         public int? MinorModerateIssues { get; set; }
         public int? MajorIssues { get; set; }
+        public int? ProcessKillShotsFailed { get; set; }
+        public decimal? ProcessDuration { get; set; }
+        public TimeSpan? StartTime { get; set; }
+        public TimeSpan? FinishTime { get; set; }
         public DateTime? CreateDate { get; set; }
         public string CreateUser { get; set; }
 

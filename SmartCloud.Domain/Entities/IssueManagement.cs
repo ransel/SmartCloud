@@ -19,6 +19,7 @@ namespace SmartCloud.Domain.Entities
         public DateTime? ShopReceivalDate { get; set; }
         public DateTime? ExpectedFixDate { get; set; }
         public DateTime? ActualFixDate { get; set; }
+        public decimal? TotalCost { get; set; }
         public bool? RequiresWorkflow { get; set; }
         public DateTime? CreateDate { get; set; }
         public string CreateUser { get; set; }

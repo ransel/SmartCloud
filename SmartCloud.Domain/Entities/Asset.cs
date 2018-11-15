@@ -9,6 +9,7 @@ namespace SmartCloud.Domain.Entities
         {
             AssetAttributes = new HashSet<AssetAttributes>();
             AssetBeaconRel = new HashSet<AssetBeaconRel>();
+            AssetBehavior = new HashSet<AssetBehavior>();
             AssetInformationRel = new HashSet<AssetInformationRel>();
         }
 
@@ -26,6 +27,7 @@ namespace SmartCloud.Domain.Entities
         public LineOfBusiness LineOfBusiness { get; set; }
         public ICollection<AssetAttributes> AssetAttributes { get; set; }
         public ICollection<AssetBeaconRel> AssetBeaconRel { get; set; }
+        public ICollection<AssetBehavior> AssetBehavior { get; set; }
         public ICollection<AssetInformationRel> AssetInformationRel { get; set; }
     }
 }

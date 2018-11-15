@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using SmartCloud.Common.Constants;
 using SmartCloud.Model.Account;
 using SmartCloud.Services.Interfaces;
 
@@ -11,12 +12,14 @@ namespace SmartCloud.Controllers
         private readonly IAccountService _accountService;
         private readonly IMapperService _mapperService;
         private readonly ILoggingService _loggingService;
+        private readonly ICacheService _cacheService;
 
-        public UsersController(IAccountService accountService, IMapperService mapperService, ILoggingService loggingService)
+        public UsersController(IAccountService accountService, IMapperService mapperService, ILoggingService loggingService, ICacheService cacheService)
         {
             _accountService = accountService;
             _mapperService = mapperService;
             _loggingService = loggingService;
+            _cacheService = cacheService;
         }
 
         // GET: Users
@@ -24,8 +27,12 @@ namespace SmartCloud.Controllers
         {
             _loggingService.LogInfo("Reading Users Get Method");
             var watch = System.Diagnostics.Stopwatch.StartNew();
-            var users = await _accountService.GetAllUsers();
-            var results = _mapperService.Map<List<Domain.Entities.User>, List<User>>(users);
+            if (!_cacheService.TryGetValue(CacheConstants.Users, out List<User> results))
+            {
+                var users = await _accountService.GetAllUsers();
+                results = _mapperService.Map<List<Domain.Entities.User>, List<User>>(users);
+                _cacheService.SetValue(CacheConstants.Users, results);
+            }
             watch.Stop();
             _loggingService.LogInfo("Finished Reading Users Get Method", new Dictionary<string, string> { {"RetrieveUserDuration", watch.ElapsedMilliseconds.ToString()} });
             return View(results);

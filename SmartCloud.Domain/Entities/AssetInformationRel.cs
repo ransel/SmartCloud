@@ -8,6 +8,7 @@ namespace SmartCloud.Domain.Entities
         public Guid AssetInformationRelId { get; set; }
         public Guid? AssetId { get; set; }
         public Guid? AssetInspectionId { get; set; }
+        public DateTime? LastRunDate { get; set; }
         public DateTime? CreateDate { get; set; }
         public string CreateUser { get; set; }
 

@@ -9,7 +9,7 @@ namespace SmartCloud.Domain.Entities
         public Guid? InspectionProcessId { get; set; }
         public int? ActivityTypeId { get; set; }
         public int? StepTypeId { get; set; }
-        public bool? StepState { get; set; }
+        public bool? HasIssue { get; set; }
         public int? SeverityTypeId { get; set; }
         public bool? IsKillShot { get; set; }
         public byte[] Photo { get; set; }

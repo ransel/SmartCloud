@@ -13,7 +13,7 @@ namespace SmartCloud.Domain.Entities
         public Guid NotificationId { get; set; }
         public int NotificationTypeId { get; set; }
         public Guid? UserId { get; set; }
-        public bool? RequiresWorkslow { get; set; }
+        public bool? RequiresWorkFlow { get; set; }
         public bool? Sent { get; set; }
         public DateTime? SentTime { get; set; }
         public DateTime? CreateDate { get; set; }

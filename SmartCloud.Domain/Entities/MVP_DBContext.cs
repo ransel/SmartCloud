@@ -19,11 +19,13 @@ namespace SmartCloud.Domain.Entities
         public virtual DbSet<Asset> Asset { get; set; }
         public virtual DbSet<AssetAttributes> AssetAttributes { get; set; }
         public virtual DbSet<AssetBeaconRel> AssetBeaconRel { get; set; }
+        public virtual DbSet<AssetBehavior> AssetBehavior { get; set; }
         public virtual DbSet<AssetInformationRel> AssetInformationRel { get; set; }
         public virtual DbSet<AssetInspection> AssetInspection { get; set; }
         public virtual DbSet<AssetType> AssetType { get; set; }
         public virtual DbSet<Beacon> Beacon { get; set; }
         public virtual DbSet<CityLookup> CityLookup { get; set; }
+        public virtual DbSet<ClientCertification> ClientCertification { get; set; }
         public virtual DbSet<CountryLookup> CountryLookup { get; set; }
         public virtual DbSet<Ctiotservice> Ctiotservice { get; set; }
         public virtual DbSet<CustomerInspection> CustomerInspection { get; set; }
@@ -58,14 +60,12 @@ namespace SmartCloud.Domain.Entities
         public virtual DbSet<UserBehavior> UserBehavior { get; set; }
         public virtual DbSet<UserType> UserType { get; set; }
 
-        // Unable to generate entity type for table 'dbo.ClientCertification'. Please see the warning messages.
-
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=mvp-server-1.database.windows.net;Database=MVP_DB_V2;Persist Security Info=False;User ID=TechTeamAdmin;Password=MarZorAlex2001;");
+                optionsBuilder.UseSqlServer("Server=mvp-server-1.database.windows.net;Database=MVP_DB;Persist Security Info=False;User ID=TechTeamAdmin;Password=MarZorAlex2001;");
             }
         }
 
@@ -231,6 +231,40 @@ namespace SmartCloud.Domain.Entities
                     .HasConstraintName("FK_AssetBeaconRel_LocationType");
             });
 
+            modelBuilder.Entity<AssetBehavior>(entity =>
+            {
+                entity.Property(e => e.AssetBehaviorId)
+                    .HasColumnName("AssetBehavior_ID")
+                    .HasDefaultValueSql("(newid())");
+
+                entity.Property(e => e.AssetId).HasColumnName("Asset_ID");
+
+                entity.Property(e => e.AverageInspectionScore).HasColumnType("numeric(8, 2)");
+
+                entity.Property(e => e.AverageInspectionTime).HasColumnType("numeric(8, 1)");
+
+                entity.Property(e => e.CreateDate).HasColumnType("datetime2(0)");
+
+                entity.Property(e => e.CreateUser)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.FirstInspectionDate).HasColumnType("datetime2(0)");
+
+                entity.Property(e => e.LastInspectionDate).HasColumnType("datetime2(0)");
+
+                entity.Property(e => e.LastModDate).HasColumnType("datetime2(0)");
+
+                entity.Property(e => e.LastModSystem)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.HasOne(d => d.Asset)
+                    .WithMany(p => p.AssetBehavior)
+                    .HasForeignKey(d => d.AssetId)
+                    .HasConstraintName("FK_AssetBehavior_Asset");
+            });
+
             modelBuilder.Entity<AssetInformationRel>(entity =>
             {
                 entity.Property(e => e.AssetInformationRelId)
@@ -247,6 +281,8 @@ namespace SmartCloud.Domain.Entities
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
+                entity.Property(e => e.LastRunDate).HasColumnType("datetime2(0)");
+
                 entity.HasOne(d => d.Asset)
                     .WithMany(p => p.AssetInformationRel)
                     .HasForeignKey(d => d.AssetId)
@@ -262,7 +298,7 @@ namespace SmartCloud.Domain.Entities
             {
                 entity.Property(e => e.AssetInspectionId)
                     .HasColumnName("AssetInspection_ID")
-                    .ValueGeneratedNever();
+                    .HasDefaultValueSql("(newid())");
 
                 entity.Property(e => e.CreateDate).HasColumnType("datetime2(0)");
 
@@ -272,13 +308,11 @@ namespace SmartCloud.Domain.Entities
 
                 entity.Property(e => e.InspectionDate).HasColumnType("datetime2(0)");
 
-                entity.Property(e => e.InspectionStartTime).HasColumnType("time(0)");
-
-                entity.Property(e => e.InspectionStopTime).HasColumnType("time(0)");
+                entity.Property(e => e.InspectionDuration).HasColumnType("numeric(4, 2)");
 
                 entity.Property(e => e.InspectionTypeId).HasColumnName("InspectionType_ID");
 
-                entity.Property(e => e.Lattitude).HasColumnType("numeric(8, 5)");
+                entity.Property(e => e.Latitude).HasColumnType("numeric(8, 5)");
 
                 entity.Property(e => e.Longitude).HasColumnType("numeric(8, 5)");
 
@@ -418,6 +452,32 @@ namespace SmartCloud.Domain.Entities
                     .WithMany(p => p.CityLookup)
                     .HasForeignKey(d => d.ProvinceId)
                     .HasConstraintName("FK_CityLookup_ProvinceLookup");
+            });
+
+            modelBuilder.Entity<ClientCertification>(entity =>
+            {
+                entity.Property(e => e.ClientCertificationId)
+                    .HasColumnName("ClientCertification_ID")
+                    .HasDefaultValueSql("(newid())");
+
+                entity.Property(e => e.CreateDate).HasColumnType("datetime2(0)");
+
+                entity.Property(e => e.CreateUser)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.DeviceIdentifier)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.ExpiryDate).HasColumnType("datetime2(0)");
+
+                entity.Property(e => e.UserId).HasColumnName("User_ID");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.ClientCertification)
+                    .HasForeignKey(d => d.UserId)
+                    .HasConstraintName("FK_ClientCertification_User");
             });
 
             modelBuilder.Entity<CountryLookup>(entity =>
@@ -680,7 +740,7 @@ namespace SmartCloud.Domain.Entities
             {
                 entity.Property(e => e.InspectionProcessId)
                     .HasColumnName("InspectionProcess_ID")
-                    .ValueGeneratedNever();
+                    .HasDefaultValueSql("(newid())");
 
                 entity.Property(e => e.AssetInspectionId).HasColumnName("AssetInspection_ID");
 
@@ -689,6 +749,8 @@ namespace SmartCloud.Domain.Entities
                 entity.Property(e => e.CreateUser)
                     .HasMaxLength(50)
                     .IsUnicode(false);
+
+                entity.Property(e => e.ProcessDuration).HasColumnType("numeric(4, 2)");
 
                 entity.Property(e => e.ProcessTypeId).HasColumnName("ProcessType_ID");
 
@@ -823,7 +885,7 @@ namespace SmartCloud.Domain.Entities
             {
                 entity.Property(e => e.IssueManagementId)
                     .HasColumnName("IssueManagement_ID")
-                    .ValueGeneratedNever();
+                    .HasDefaultValueSql("(newid())");
 
                 entity.Property(e => e.ActualFixDate).HasColumnType("datetime2(0)");
 
@@ -852,6 +914,8 @@ namespace SmartCloud.Domain.Entities
                 entity.Property(e => e.MechanicId).HasColumnName("Mechanic_ID");
 
                 entity.Property(e => e.ShopReceivalDate).HasColumnType("datetime2(0)");
+
+                entity.Property(e => e.TotalCost).HasColumnType("numeric(8, 2)");
 
                 entity.HasOne(d => d.AssetInspection)
                     .WithMany(p => p.IssueManagement)
@@ -1280,7 +1344,7 @@ namespace SmartCloud.Domain.Entities
             {
                 entity.Property(e => e.ResolutionDetailId)
                     .HasColumnName("ResolutionDetail_ID")
-                    .ValueGeneratedNever();
+                    .HasDefaultValueSql("(newid())");
 
                 entity.Property(e => e.Cost).HasColumnType("numeric(8, 2)");
 
@@ -1434,16 +1498,11 @@ namespace SmartCloud.Domain.Entities
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
-                entity.Property(e => e.DeviceIdentifier)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
                 entity.Property(e => e.EmailAddress)
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
-                entity.Property(e => e.EmployeeId)
-                    .HasColumnName("EmployeeID")
+                entity.Property(e => e.EmployeeIdentifier)
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
@@ -1452,10 +1511,6 @@ namespace SmartCloud.Domain.Entities
                     .IsUnicode(false);
 
                 entity.Property(e => e.LastModDate).HasColumnType("datetime2(0)");
-
-                entity.Property(e => e.LastModSystem)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
 
                 entity.Property(e => e.LastModUser)
                     .HasMaxLength(50)
@@ -1479,11 +1534,11 @@ namespace SmartCloud.Domain.Entities
                     .HasMaxLength(200)
                     .IsUnicode(false);
 
-                entity.Property(e => e.UserName)
+                entity.Property(e => e.UserTypeId).HasColumnName("UserType_ID");
+
+                entity.Property(e => e.VerificationPin)
                     .HasMaxLength(50)
                     .IsUnicode(false);
-
-                entity.Property(e => e.UserTypeId).HasColumnName("UserType_ID");
 
                 entity.HasOne(d => d.UserType)
                     .WithMany(p => p.User)
@@ -1495,7 +1550,7 @@ namespace SmartCloud.Domain.Entities
             {
                 entity.Property(e => e.UserBehaviorId)
                     .HasColumnName("UserBehavior_ID")
-                    .ValueGeneratedNever();
+                    .HasDefaultValueSql("(newid())");
 
                 entity.Property(e => e.AverageInspectionScore).HasColumnType("numeric(8, 2)");
 

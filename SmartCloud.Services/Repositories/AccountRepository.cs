@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using SmartCloud.Domain.Entities;
@@ -14,8 +15,19 @@ namespace SmartCloud.Services.Repositories
 
         public async Task<List<User>> GetAllUsers()
         {
-            var users = Context.User.Include(u => u.UserType);
-            return await users.ToListAsync();
+            var users = Context.User.Include(u => u.UserType).Take(50);
+            var results = await users.ToListAsync();
+
+            return results
+                .OrderBy(user => user.FirstName)
+                .ThenBy(user => user.LastName)
+                .ToList();
+        }
+
+        public async Task CreateUser(User user)
+        {
+            Context.Add(user);
+            await Context.SaveChangesAsync();
         }
     }
 }
