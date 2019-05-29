@@ -33,14 +33,11 @@ namespace SmartCloud.Services
 
         public async Task<User> CreateUser(CreateUserCommand command)
         {
-            var createDate = DateTime.Now;
             var currentUser = _contextService.User?.Name;
 
             var user = _mapperService.Map<CreateUserCommand, User>(command);
             user.UserId = Guid.NewGuid();
             user.VerificationPin = PinGenerator.Generate();
-            user.CreateDate = createDate;
-            user.LastModDate = createDate;
             user.CreateUser = currentUser;
             user.LastModUser = currentUser;
 

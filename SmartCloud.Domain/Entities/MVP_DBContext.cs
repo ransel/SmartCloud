@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace SmartCloud.Domain.Entities
 {
-    public partial class MVP_DBContext : DbContext
+    public partial class MVP_DBContext : BaseDbContext
     {
         public MVP_DBContext()
         {

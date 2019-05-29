@@ -22,7 +22,7 @@ namespace SmartCloud.Services
         {
             _fromEmail = notificationSettings.Value.From;
             _smtpServerName = notificationSettings.Value.SmtpServer;
-            _smtpPort = int.Parse(notificationSettings.Value.SmtpPort);
+            _smtpPort = notificationSettings.Value.SmtpPort;
             _smtpClientPassword = notificationSettings.Value.SmtpClientPassword;
             _loggingService = loggingService;
         }
